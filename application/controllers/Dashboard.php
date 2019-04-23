@@ -87,4 +87,19 @@ class Dashboard extends CI_Controller {
         $this->db->insert('user',$data);
         redirect('Dashboard/user');
     }
+
+    public function valJumbo($id)
+    {
+       $data = $this->db->get_where('routes',['id'=>$id])->result();
+       echo "<div class='jumbotron'><h1>(Kota Pengirim)".$data[0]->kota_pengirim." -> (Kota Penerima)".$data[0]->kota_penerima."</h1></div>";
+    }
+
+    public function updateResi()
+	{
+		$this->load->view('dashboard/head');
+		$this->load->view('dashboard/updateResi');
+		$this->load->view('dashboard/bottom');
+    }
+
+    
 }
