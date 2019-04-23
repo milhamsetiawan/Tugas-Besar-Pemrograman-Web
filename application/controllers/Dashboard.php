@@ -148,5 +148,50 @@ class Dashboard extends CI_Controller {
         $this->db->update('routes',$data,['id' => $id]);
         redirect('Dashboard/route');
     }
-    
+
+    public function deleteRoute($id)
+    {
+        if($id){
+            $this->db->delete('routes',['id' => $id]);
+        }
+        redirect('Dashboard/Route');
+    }
+
+    public function addRoute()
+	{
+		$this->load->view('dashboard/head');
+		$this->load->view('dashboard/addRoute');
+		$this->load->view('dashboard/bottom');
+    }
+
+    public function editRoute($id)
+    {
+        $data = [
+            'dataRoute' => $this->db->get_where('routes',['id'=>$id])->result()[0]
+        ];
+		$this->load->view('dashboard/head');
+		$this->load->view('dashboard/editRoute',$data);
+		$this->load->view('dashboard/bottom');
+    }
+
+    public function addOrder()
+	{
+        $data = [
+            'dataRoute' => $this->db->get('routes')->result()
+        ];
+		$this->load->view('dashboard/head');
+		$this->load->view('dashboard/addOrder',$data);
+        $this->load->view('dashboard/bottom');
+    }
+
+    public function detailTrack($id)
+	{
+        $data = [
+            'dataOrder' => $this->Main->getDataOrder($id),
+        ];
+		$this->load->view('dashboard/head');
+		$this->load->view('dashboard/detailTrack',$data);
+		$this->load->view('dashboard/bottom');
+    }
+
 }
