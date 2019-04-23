@@ -194,4 +194,25 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/bottom');
     }
 
+    public function updateResiP()
+    {
+        $noresi = $this->input->post('noresi');
+        print_r($noresi);
+        $id = $this->Main->getIDbyResi($noresi);
+        if($id != NULL){
+            $data = [
+                'message' => $this->input->post('message'),
+                'idOrder' => $id[0]->id
+            ];
+                if($this->input->post('status') == 'diterima'){
+                    $this->db->set('tanggal_diterima','NOW()',false);
+                    $this->db->update('orderlogistik',['status' => $this->input->post('status')],['nomor_resi' => $noresi]);
+                }else{
+                    $this->db->update('orderlogistik',['status' => $this->input->post('status')],['nomor_resi' => $noresi]);
+                }
+            $this->db->insert('historyorder',$data);
+        }
+        redirect('Dashboard/Order');
+    }
+
 }
