@@ -101,5 +101,29 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/bottom');
     }
 
+    public function addUser()
+	{
+		$this->load->view('dashboard/head');
+		$this->load->view('dashboard/addUser');
+		$this->load->view('dashboard/bottom');
+    }
+
+    public function deleteUser($id)
+    {
+        if($id){
+            $this->db->delete('user',['id' => $id]);
+        }
+        redirect('Dashboard/User');
+    }
+
+    public function editUser($id)
+    {
+        $data = [
+            'dataUser' => $this->db->get_where('user',['id'=>$id])->result()[0]
+        ];
+		$this->load->view('dashboard/head');
+		$this->load->view('dashboard/editUser',$data);
+		$this->load->view('dashboard/bottom');
+    }
     
 }
