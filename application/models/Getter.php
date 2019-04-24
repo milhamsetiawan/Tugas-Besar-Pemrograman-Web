@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Main extends CI_Model {
+class Getter extends CI_Model {
     public function getIDbyResi($resi)
     {
         return $this->db->select('id')->where(['nomor_resi' => $resi])->get('orderlogistik')->result();

@@ -146,6 +146,7 @@
         <p class="lead">Kirim barang barang mu ke seluruh indonesia dengan murah</p>
         <p class="lead">
           <a href="<?php echo base_url('Main/route');?>" class="btn btn-lg btn-secondary">Cek Tarif</a>
+          <a href="<?php echo base_url('Main/login');?>" class="btn btn-lg btn-secondary">Login</a>
         </p>
       </main>
 
