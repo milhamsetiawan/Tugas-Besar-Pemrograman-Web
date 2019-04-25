@@ -33,7 +33,7 @@ class Dashboard extends CI_Controller {
     public function order()
 	{
         $data = [
-            'dataOrder' => $this->Main->getAllDataOrder()
+            'dataOrder' => $this->Getter->getAllDataOrder()
         ];
 		$this->load->view('dashboard/head');
 		$this->load->view('dashboard/mainOrder',$data);
@@ -42,7 +42,7 @@ class Dashboard extends CI_Controller {
     public function detailTrack($id)
 	{
         $data = [
-            'dataOrder' => $this->Main->getDataOrder($id),
+            'dataOrder' => $this->Getter->getDataOrder($id),
         ];
 		$this->load->view('dashboard/head');
 		$this->load->view('dashboard/detailTrack',$data);
