@@ -6,7 +6,7 @@
                         Jumlah Route
                     </div>
                     <div class="card-body">
-                        <a href="<?php echo base_url('Dashboard/addRoute');?>" class="btn btn-primary">Add Order</a>
+                        <a href="<?php echo base_url('Dashboard/addRoute');?>" class="btn btn-primary">Add Route</a>
                         <hr>
                         <table id="dataOrder" class="table table-striped table-bordered" style="width:100%">
                             <thead>

@@ -74,53 +74,6 @@ class Main extends CI_Controller {
 		$this->load->view('dashboard/bottom');
     }
 
-    public function updateResiP()
-    {
-        $noresi = $this->input->post('noresi');
-        print_r($noresi);
-        $id = $this->Main->getIDbyResi($noresi);
-        if($id != NULL){
-            $data = [
-                'message' => $this->input->post('message'),
-                'idOrder' => $id[0]->id
-            ];
-                if($this->input->post('status') == 'diterima'){
-                    $this->db->set('tanggal_diterima','NOW()',false);
-                    $this->db->update('orderlogistik',['status' => $this->input->post('status')],['nomor_resi' => $noresi]);
-                }else{
-                    $this->db->update('orderlogistik',['status' => $this->input->post('status')],['nomor_resi' => $noresi]);
-                }
-            $this->db->insert('historyorder',$data);
-        }
-        redirect('Dashboard/Order');
-    }
-
-    public function addOrderP()
-    {
-        $s = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 5)), 0, 5);
-        $data = [
-            'nama_pengirim' => $this->input->post('nama_pengirim'),
-            'nomor_resi' => strtoupper('LOG'.$s),
-            'alamat_penerima' => $this->input->post('alamat_penerima'),
-            'nama_penerima' => $this->input->post('nama_penerima'),
-            'nohp_penerima' => $this->input->post('nohp_penerima'),
-            'nama_pengirim' => $this->input->post('nama_pengirim'),
-            'nohp_pengirim' => $this->input->post('nohp_pengirim'),
-            'status' => 'diproses',
-            'berat' => $this->input->post('berat'),
-            'routes' => $this->input->post('routes'),
-        ];
-        $this->db->set('tanggal_dikirim', 'NOW()', FALSE);
-        $this->db->insert('orderlogistik', $data);
-        $lastid = $this->db->insert_id();
-        $data2 = [
-            'idOrder' => $lastid,
-            'message' => 'Data Diterima , menunggu pengiriman'
-        ];
-        $this->db->insert('historyorder',$data2);
-        redirect('Dashboard/Order');
-    }
-
     public function addrouteP()
     {
         $data = [
@@ -189,13 +142,5 @@ class Main extends CI_Controller {
             $this->db->delete('routes',['id' => $id]);
         }
         redirect('Dashboard/Route');
-    }
-
-    public function deleteUser($id)
-    {
-        if($id){
-            $this->db->delete('user',['id' => $id]);
-        }
-        redirect('Dashboard/User');
     }    
 }
