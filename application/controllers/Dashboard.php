@@ -145,4 +145,78 @@ class Dashboard extends CI_Controller {
         $this->db->insert('historyorder',$data2);
         redirect('Dashboard/Order');
     }
+
+    public function adduserP()
+    {
+        $data = [
+            'username' => $this->input->post('username'),
+            'password' => $this->input->post('password'),
+            'fullname' => $this->input->post('fullname'),
+            'role' => $this->input->post('role')
+        ];
+        $this->db->insert('user',$data);
+        redirect('Dashboard/user');
+    }
+
+    public function addrouteP()
+    {
+        $data = [
+            'kota_pengirim' => $this->input->post('kota_pengirim'),
+            'kota_penerima' => $this->input->post('kota_penerima'),
+            'fare' => $this->input->post('fare')
+        ];
+        $this->db->insert('routes',$data);
+        redirect('Dashboard/route');
+    }
+
+    public function deleteRoute($id)
+    {
+        if($id){
+            $this->db->delete('routes',['id' => $id]);
+        }
+        redirect('Dashboard/Route');
+    }
+
+    public function editrouteP($id)
+    {
+        $data = [
+            'kota_pengirim' => $this->input->post('kota_pengirim'),
+            'kota_penerima' => $this->input->post('kota_penerima'),
+            'fare' => $this->input->post('fare')
+        ];
+        $this->db->update('routes',$data,['id' => $id]);
+        redirect('Dashboard/route');
+    }
+
+    public function editRoute($id)
+    {
+        $data = [
+            'dataRoute' => $this->db->get_where('routes',['id'=>$id])->result()[0]
+        ];
+		$this->load->view('dashboard/head');
+		$this->load->view('dashboard/editRoute',$data);
+		$this->load->view('dashboard/bottom');
+    }
+
+    public function editUser($id)
+    {
+        $data = [
+            'dataUser' => $this->db->get_where('user',['id'=>$id])->result()[0]
+        ];
+		$this->load->view('dashboard/head');
+		$this->load->view('dashboard/editUser',$data);
+		$this->load->view('dashboard/bottom');
+    }
+
+    public function edituserP($id)
+    {
+        $data = [
+            'username' => $this->input->post('username'),
+            'password' => $this->input->post('password'),
+            'fullname' => $this->input->post('fullname'),
+            'role' => $this->input->post('role')
+        ];
+        $this->db->update('user',$data,['id'=>$id]);
+        redirect('Dashboard/user');
+    }
 }
